@@ -93,39 +93,53 @@ public class AssassinManager {
 	}
 	
 	public void kill(String name) {
-		if (isGameOver())  {
-			throw new IllegalStateException();
-		}
-		if (!killRingContains(name))  {
-			throw new IllegalArgumentException();
-		}	
+		if (isGameOver()) throw new IllegalStateException();
+		if (!killRingContains(name)) throw new IllegalArgumentException();	
 		String n = name.toLowerCase();
 		AssassinNode cur = first.next;
 		AssassinNode pre = first;
+		while(pre.next != first){
+			pre = pre.next;
+		}
+		//finds the last node in the list
+		AssasinNode last = pre;
+		pre = first;
 		if (first.name.toLowerCase().equals(n)) {
 			AssassinNode next = new AssassinNode(cur.name,cur.next);
-			cur.next = newDead;
-			newDead = cur;
+			pre.next = newDead;
+			newDead = pre;
 			first = next;
 			cur.killer = pre.name;
 			return;
 		}
 		while(cur != first) {
 			if (cur.name.toLowerCase().equals(n)) {
-				
 				pre.next = cur.next;
-				cur.next = newDead;
-				newDead = cur;
+				if(newDead == null){
+					newDead = cur;
+				}
+				else{
+					cur.next = newDead;
+					newDead = cur;
+				}
+				
 				cur.killer = pre.name;
 				return;
 			}
+			
 			cur = cur.next;
 			pre = pre.next;
 		}
 		if (cur.name.toLowerCase().equals(n)) {
 			pre.next = cur.next;
-			cur.next = newDead;
-			newDead = cur;
+			if(newDead == null){
+				newDead = cur;
+			}
+			else{
+				cur.next = newDead;
+				newDead = cur;
+			}
+			
 			cur.killer = pre.name;
 			return;
 		}
