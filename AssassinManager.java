@@ -1,7 +1,7 @@
 package Assassin;
 import java.util.*;
 import java.awt.List;
-
+//https://gist.github.com/Necrosynth/f4227e4bb0dd006d150e0a38d4377a54
 public class AssassinManager {
     // YOUR CODE GOES HERE
 
